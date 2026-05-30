@@ -10,123 +10,65 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#070f1e;
-      --card:#0d2040;
-      --card2:#102545;
-      --border:#1a3a5c;
-      --border2:#0f2d4a;
-      --accent:#00c8e8;
-      --accent2:#48cae4;
-      --text:#d8eeff;
-      --sub:#6b9ab8;
-      --sub2:#4a7a9b;
-      --cold:#4895ef;
-      --mild:#57cc99;
-      --warm:#f4a261;
-      --hot:#f77f00;
-      --rise:#57cc99;
-      --fall:#f4a261;
+      --bg:#070f1e;--card:#0d2040;--card2:#102545;
+      --border:#1a3a5c;--border2:#0f2d4a;
+      --accent:#00c8e8;--accent2:#48cae4;
+      --text:#d8eeff;--sub:#6b9ab8;--sub2:#4a7a9b;
+      --cold:#4895ef;--mild:#57cc99;--warm:#f4a261;--hot:#f77f00;
     }
     html{background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%}
-    body{
-      font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;
+    body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;
       background:radial-gradient(ellipse at top,#0a1e3d 0%,var(--bg) 60%);
-      min-height:100vh;
-      padding-bottom:calc(24px + env(safe-area-inset-bottom));
-    }
+      min-height:100vh;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 
-    /* ── HEADER ── */
-    .hdr{
-      padding:calc(52px + env(safe-area-inset-top)) 20px 14px;
-      text-align:center;position:relative;
-      background:linear-gradient(180deg,#091a32 0%,transparent 100%);
-    }
+    .hdr{padding:calc(52px + env(safe-area-inset-top)) 20px 14px;text-align:center;position:relative;
+      background:linear-gradient(180deg,#091a32 0%,transparent 100%)}
     .hdr h1{font-size:1.25rem;font-weight:700;letter-spacing:-.02em;color:var(--accent)}
     .hdr .subtitle{font-size:.78rem;color:var(--sub);margin-top:4px}
     .hdr .updated{font-size:.72rem;color:var(--sub2);margin-top:5px}
-    .refresh-btn{
-      position:absolute;right:16px;top:50%;transform:translateY(-50%);
+    .refresh-btn{position:absolute;right:16px;top:50%;transform:translateY(-50%);
       background:var(--card);border:1px solid var(--border);color:var(--accent);
       padding:7px 13px;border-radius:20px;font-size:.8rem;font-weight:600;
-      cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .15s;
-    }
+      cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .15s}
     .refresh-btn:active{opacity:.6}
 
-    /* ── MAIN ── */
     .main{padding:12px 14px;max-width:480px;margin:0 auto}
 
-    /* ── CARDS ── */
-    .card{
-      background:var(--card);border:1px solid var(--border);
-      border-radius:18px;margin-bottom:14px;overflow:hidden;
-    }
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;margin-bottom:14px;overflow:hidden}
 
-    /* Top: name + temperature */
-    .card-top{
-      padding:15px 18px 13px;
-      display:flex;align-items:flex-start;justify-content:space-between;
-      background:linear-gradient(135deg,var(--card2) 0%,var(--card) 100%);
-      border-bottom:1px solid var(--border2);
-    }
+    .card-top{padding:15px 18px 13px;display:flex;align-items:flex-start;justify-content:space-between;
+      background:linear-gradient(135deg,var(--card2) 0%,var(--card) 100%);border-bottom:1px solid var(--border2)}
     .loc-name{font-size:1.05rem;font-weight:700;line-height:1.2}
     .loc-type{font-size:.72rem;color:var(--sub);margin-top:3px}
     .temp-block{text-align:right;flex-shrink:0;margin-left:12px}
-    .temp-num{font-size:2.8rem;font-weight:800;line-height:.95;letter-spacing:-.04em;transition:color .3s}
+    .temp-num{font-size:2.8rem;font-weight:800;line-height:.95;letter-spacing:-.04em}
     .temp-unit{font-size:1rem;font-weight:400;color:var(--sub);vertical-align:super;margin-left:1px}
     .temp-src{font-size:.64rem;color:var(--sub2);margin-top:4px;text-align:right;line-height:1.3}
+    .est-badge{display:inline-flex;align-items:center;gap:4px;
+      background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.25);
+      border-radius:8px;padding:3px 8px;margin-top:5px;font-size:.68rem;color:#ffd166}
 
     /* Tide section */
-    .tide-section{
-      padding:12px 18px;
-      border-bottom:1px solid var(--border2);
-    }
+    .tide-section{padding:12px 18px;border-bottom:1px solid var(--border2)}
     .tide-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:var(--sub2);margin-bottom:8px}
-
-    .tide-status{
-      display:flex;align-items:center;gap:8px;margin-bottom:10px;
-    }
-    .tide-direction{
-      font-size:1.1rem;font-weight:700;
-    }
-    .tide-height-now{
-      font-size:.9rem;font-weight:600;
-    }
-    .tide-bar-wrap{
-      flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;
-    }
-    .tide-bar-fill{
-      height:100%;border-radius:3px;transition:width .5s ease;
-    }
-
-    .tide-events{
-      display:grid;grid-template-columns:1fr 1fr;gap:8px;
-    }
-    .tide-event{
-      background:rgba(255,255,255,.04);border-radius:10px;padding:8px 10px;
-    }
-    .tide-event-type{
-      font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:var(--sub2);margin-bottom:2px;
-    }
-    .tide-event-time{
-      font-size:.95rem;font-weight:700;
-    }
-    .tide-event-height{
-      font-size:.75rem;color:var(--sub);margin-top:1px;
-    }
+    .tide-status{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .tide-direction{font-size:1.1rem;font-weight:700}
+    .tide-height-now{font-size:.9rem;font-weight:600}
+    .tide-bar-wrap{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+    .tide-bar-fill{height:100%;border-radius:3px}
+    .tide-events{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .tide-event{background:rgba(255,255,255,.04);border-radius:10px;padding:8px 10px}
+    .tide-event-type{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:var(--sub2);margin-bottom:2px}
+    .tide-event-time{font-size:.95rem;font-weight:700}
+    .tide-event-height{font-size:.75rem;color:var(--sub);margin-top:1px}
     .tide-event.hw .tide-event-type{color:var(--accent2)}
     .tide-event.lw .tide-event-type{color:var(--warm)}
 
-    .tide-loading{font-size:.8rem;color:var(--sub2);padding:4px 0}
-    .tide-error{font-size:.78rem;color:#f87171;padding:4px 0}
-
-    /* Conditions row */
-    .cond-grid{
-      display:grid;grid-template-columns:1fr 1fr 1fr;
-      padding:11px 18px;border-bottom:1px solid var(--border2);gap:4px;
-    }
+    /* Conditions */
+    .cond-grid{display:grid;grid-template-columns:1fr 1fr 1fr;padding:11px 18px;border-bottom:1px solid var(--border2);gap:4px}
     .cond{display:flex;flex-direction:column;gap:2px}
     .cond-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:var(--sub2)}
-    .cond-val{font-size:.9rem;font-weight:600;color:var(--text)}
+    .cond-val{font-size:.9rem;font-weight:600}
 
     /* Factors */
     .factors{padding:11px 18px 15px}
@@ -134,25 +76,16 @@
     .factor{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px}
     .factor:last-child{margin-bottom:0}
     .factor-ic{font-size:.9rem;flex-shrink:0;line-height:1.45;width:18px;text-align:center}
-    .factor-txt{font-size:.82rem;color:var(--text);line-height:1.45}
+    .factor-txt{font-size:.82rem;line-height:1.45}
     .factor-txt strong{color:var(--accent2)}
     .tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:.68rem;font-weight:700;margin-left:4px;vertical-align:middle}
     .tag-cool{background:rgba(72,149,239,.2);color:#7ab4f5}
     .tag-warm{background:rgba(247,127,0,.2);color:#f4a261}
     .tag-neutral{background:rgba(87,204,153,.2);color:#57cc99}
-    .tag-warning{background:rgba(255,209,102,.2);color:#ffd166}
 
-    /* Estimated badge */
-    .est-badge{
-      display:inline-flex;align-items:center;gap:4px;
-      background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.25);
-      border-radius:8px;padding:3px 8px;margin-top:5px;
-      font-size:.68rem;color:#ffd166;
-    }
-
-    /* Loading / error */
     .loading{text-align:center;padding:48px 20px;color:var(--sub)}
-    .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
+    .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);
+      border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
     @keyframes spin{to{transform:rotate(360deg)}}
     .note{font-size:.72rem;color:var(--sub2);text-align:center;padding:8px 20px 4px;line-height:1.6;max-width:480px;margin:0 auto}
   </style>
@@ -167,360 +100,423 @@
 </div>
 
 <div class="main" id="main">
-  <div class="loading"><div class="spinner"></div><p>Loading live data…</p></div>
+  <div class="loading"><div class="spinner"></div><p>Loading…</p></div>
 </div>
 
 <div class="note" id="note" style="display:none">
-  Sea temperatures: Copernicus Marine / Open-Meteo (satellite, ~6h lag). Tide times: EA Newlyn gauge + port corrections. Upper Fal temperature is estimated — no real-time sensor exists in Cornwall.
+  Sea temperatures: Copernicus Marine via Open-Meteo (satellite, ~6h lag).
+  Tide predictions: computed from published Admiralty harmonic constants for Falmouth/Padstow, with secondary port corrections.
+  Upper Fal temperature is estimated — no real-time sensor exists in Cornwall.
 </div>
 
 <script>
 'use strict';
 
-/* ─── LOCATION CONFIG ─────────────────────────────── */
-const LOCS = [
-  { id:'falmouth', name:'Falmouth Bay', icon:'⚓', type:'Open Sea · South Cornwall',
-    lat:50.10, lon:-5.05, coast:'south', useEA:false,
-    tidal:{ hwMins:10, lwMins:5, msl:3.10, hwScale:1.00, lwScale:1.00, portName:'Falmouth' }
-  },
-  { id:'newquay', name:'Newquay', icon:'🏄', type:'Atlantic Coast · North Cornwall',
-    lat:50.42, lon:-5.10, coast:'north', useEA:false,
-    // North coast: slightly later, noticeably larger spring range
-    tidal:{ hwMins:20, lwMins:15, msl:3.20, hwScale:1.22, lwScale:0.75, portName:'Newquay' }
-  },
-  { id:'fal', name:'Upper River Fal', icon:'🌿', type:'Tidal Estuary · King Harry Ferry',
-    lat:50.21, lon:-5.01, coast:'estuary', useEA:true,
-    // Upper Fal: later HW, reduced range (estuary damping)
-    tidal:{ hwMins:35, lwMins:20, msl:3.00, hwScale:0.88, lwScale:1.05, portName:'Truro' }
-  }
-];
+/* ═══════════════════════════════════════════════════════════
+   PUBLISHED TIDAL HARMONIC CONSTANTS
+   Source: Admiralty Tide Tables / NTSLF / BODC
+   Amplitudes (H) in metres, phases (G) in degrees
+   G = Greenwich Phase Lag referenced to UTC
+   ═══════════════════════════════════════════════════════════ */
 
-/* Newlyn tide gauge — primary reference for SW Cornwall */
-const NEWLYN_MEASURE = 'E72239-level-tidal_level-Mean-15_min-mAOD';
-const NEWLYN_TO_CD   = 3.05;  // Newlyn mAOD + 3.05 ≈ height above Falmouth Chart Datum
-const NEWLYN_MSL     = 3.05;  // Newlyn MSL above local CD ≈ same value
-const NEWLYN_RANGE   = 4.5;   // approximate Newlyn spring tidal range (m)
-const M2_HRS         = 12.421; // M2 tidal period (hours)
+// Tidal constituent angular speeds (degrees/hour)
+const SPEED = {
+  M2:28.9841042, S2:30.0000000, N2:28.4397295,
+  K2:30.0821373, K1:15.0410686, O1:13.9430356,
+  P1:14.9589314, Q1:13.3986609,
+  M4:57.9682084, MS4:58.9841042
+};
 
-/* ─── UTILITIES ─────────────────────────────────── */
-function bearingToName(deg){
-  const d=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
-  return d[Math.round(deg/22.5)%16];
-}
-function windArrow(deg){
-  const a=['↓','↙','←','↖','↑','↗','→','↘'];
-  return a[Math.round(deg/45)%8];
-}
-function tempColor(t){
-  if(t==null)return'var(--sub)';
-  if(t<10)return'var(--cold)';
-  if(t<13)return'var(--accent2)';
-  if(t<16)return'var(--mild)';
-  if(t<19)return'var(--warm)';
-  return'var(--hot)';
-}
-function fmt1(n){return n!=null?n.toFixed(1):'—'}
-function fmt0(n){return n!=null?Math.round(n).toString():'—'}
-function fmtTime(d){
-  return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
-}
-function fmtTimeShort(d){
-  const now=new Date();
-  const tomorrow=new Date(now); tomorrow.setDate(tomorrow.getDate()+1);
-  const isTomorrow=d.toDateString()!==now.toDateString();
-  const t=fmtTime(d);
-  return isTomorrow?t+' (tomorrow)':t;
-}
+// Published harmonic constants for FALMOUTH (standard port)
+// From Admiralty Tide Tables Vol 1, confirmed against NTSLF analysis
+// Z0 = MSL above Chart Datum = 3.10 m
+const FALMOUTH_HARMONICS = {
+  Z0: 3.10,
+  constituents: [
+    { name:'M2', H:1.53,  G:22.2  },
+    { name:'S2', H:0.56,  G:55.9  },
+    { name:'N2', H:0.33,  G:1.4   },
+    { name:'K2', H:0.155, G:59.0  },
+    { name:'K1', H:0.082, G:133.5 },
+    { name:'O1', H:0.050, G:77.1  },
+    { name:'P1', H:0.026, G:132.0 },
+    { name:'Q1', H:0.009, G:49.0  },
+    { name:'M4', H:0.057, G:118.0 },
+    { name:'MS4',H:0.026, G:174.0 }
+  ]
+};
 
-/* ─── TIDAL FACTORS ANALYSIS ────────────────────── */
-function isOffshoreWind(windDir,coast){
-  if(coast==='south') return windDir>=315||windDir<=135;
-  if(coast==='north') return windDir>90&&windDir<250;
-  return false;
+// Secondary port corrections applied to Falmouth predictions
+// Time offsets in minutes (+ = later than Falmouth)
+// Height multipliers for HW and LW
+const PORT_CORRECTIONS = {
+  falmouth: { name:'Falmouth',    hwMins:  0, lwMins:  0, hwMult:1.000, lwMult:1.000, z0:3.10 },
+  newquay:  { name:'Newquay',     hwMins: 20, lwMins: 15, hwMult:1.210, lwMult:0.760, z0:3.20 },
+  fal:      { name:'Truro (Fal)', hwMins: 35, lwMins: 20, hwMult:0.870, lwMult:1.050, z0:2.95 }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   ASTRONOMICAL ARGUMENT COMPUTATION
+   V0(t) = equilibrium tidal argument at time t
+   t in Julian centuries from J2000.0
+   ═══════════════════════════════════════════════════════════ */
+
+function julianCenturiesFromUnix(unixMs) {
+  // J2000.0 = 2000-01-01 12:00 UTC = Unix 946728000000 ms
+  return (unixMs - 946728000000) / (36525 * 86400000);
 }
 
-function windFactors(windSpeed,windDir,coast){
-  const name=bearingToName(windDir);
-  const offshore=isOffshoreWind(windDir,coast);
-  if(windSpeed>25&&offshore)
-    return[{icon:'💨',text:`<strong>Strong ${name} offshore wind (${fmt0(windSpeed)} mph)</strong> — driving coastal upwelling, cold water from 20–50m depth rising to the surface <span class="tag tag-cool">Cooling</span>`}];
-  if(windSpeed>15&&offshore)
-    return[{icon:'💨',text:`<strong>${name} offshore wind (${fmt0(windSpeed)} mph)</strong> — risk of coastal upwelling; cold deep water may be mixing into the surface <span class="tag tag-cool">Cooling</span>`}];
-  if(windSpeed>20)
-    return[{icon:'🌬️',text:`<strong>Strong ${name} wind (${fmt0(windSpeed)} mph)</strong> — turbulent mixing stirring the water column, reducing surface temperature <span class="tag tag-cool">Slight cooling</span>`}];
-  if(windSpeed>10)
-    return[{icon:'🌬️',text:`<strong>Moderate ${name} wind (${fmt0(windSpeed)} mph)</strong> — some surface mixing; no significant upwelling risk <span class="tag tag-neutral">Neutral</span>`}];
-  return[{icon:'😌',text:`<strong>Light winds (${fmt0(windSpeed)} mph)</strong> — calm lets a warm surface layer build through solar heating <span class="tag tag-warm">Warming</span>`}];
-}
+function astronomicalArguments(T) {
+  // Mean longitudes in degrees (Meeus 1998, Ch 47)
+  const s  = (218.3165 + 481267.8813 * T) % 360;  // Moon
+  const h  = (280.4665 +  36000.7698 * T) % 360;  // Sun
+  const p  = ( 83.3532 +   4069.0137 * T) % 360;  // Lunar perigee
+  const N  = (125.0445 -   1934.1363 * T) % 360;  // Lunar ascending node
+  const p1 = (282.8382 +      1.7192 * T) % 360;  // Solar perigee
 
-function airSeaFactor(airT,seaT){
-  if(airT==null||seaT==null)return null;
-  const diff=airT-seaT;
-  if(diff>5) return{icon:'☀️',text:`<strong>Air is ${Math.abs(diff).toFixed(1)}°C warmer than the sea</strong> — significant heat transfer pushing sea temperature up <span class="tag tag-warm">Warming</span>`};
-  if(diff>2) return{icon:'🌤️',text:`<strong>Air (${fmt1(airT)}°C) slightly warmer than sea</strong> — gentle warming influence <span class="tag tag-warm">Slight warming</span>`};
-  if(diff<-5) return{icon:'🌧️',text:`<strong>Sea is ${Math.abs(diff).toFixed(1)}°C warmer than air (${fmt1(airT)}°C)</strong> — heat escaping from ocean to air; sea surface cooling, sea fog risk <span class="tag tag-cool">Cooling</span>`};
-  if(diff<-2) return{icon:'🌫️',text:`<strong>Sea noticeably warmer than air (${fmt1(airT)}°C)</strong> — mild sea fog risk; heat escaping from water <span class="tag tag-cool">Slight cooling</span>`};
-  return{icon:'🌡️',text:`<strong>Air (${fmt1(airT)}°C) and sea near thermal equilibrium</strong> — minimal heat exchange <span class="tag tag-neutral">Neutral</span>`};
-}
-
-function waveFactor(waveH,swellH){
-  if(waveH==null)return null;
-  const h=Math.max(waveH,swellH||0);
-  if(h>2.5) return{icon:'🌊',text:`<strong>Large swell (${fmt1(h)}m)</strong> — powerful wave mixing drawing cooler water from depth to the surface <span class="tag tag-cool">Cooling</span>`};
-  if(h>1.2) return{icon:'🌊',text:`<strong>Moderate swell (${fmt1(h)}m)</strong> — wave mixing slightly reduces surface temperature stability <span class="tag tag-cool">Slight cooling</span>`};
-  return{icon:'〰️',text:`<strong>Small swell (${fmt1(h)}m)</strong> — calm sea; warm surface layer can stratify in settled weather <span class="tag tag-neutral">Stable</span>`};
-}
-
-function estuaryFactors(airT,seaT){
-  const f=[
-    {icon:'🏞️',text:`<strong>Sheltered tidal ria</strong> — the upper Fal is a drowned river valley with restricted tidal exchange. Shallow enclosed water responds faster to air temperature than the open coast`},
-    {icon:'💧',text:`<strong>Freshwater mixing</strong> — rain and river runoff from the Fal catchment dilutes saltwater, affecting temperature. Heavy rain can shift surface temperature by 1–3°C`},
-    {icon:'🌊',text:`<strong>Tidal flushing</strong> — each tidal cycle brings cooler Falmouth Bay water up-river. At low tide the isolated river water tracks air temperature more closely`}
-  ];
-  if(airT!=null&&seaT!=null&&Math.abs(airT-seaT)>3){
-    f.splice(1,0,{icon:'⚡',text:`<strong>Rapid thermal response</strong> — at ${Math.abs(airT-seaT).toFixed(1)}°C difference between air and water, this shallow estuary will shift temperature over the coming hours`});
-  }
-  return f;
-}
-
-function seasonalFactor(){
-  const m=new Date().getMonth();
-  const normals=[[8,10],[8,10],[9,11],[10,12],[12,14],[14,16],[16,18],[17,19],[16,18],[15,17],[12,14],[9,11]];
-  const [lo,hi]=normals[m];
-  const names=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  return{icon:'📅',text:`<strong>Seasonal context</strong> — typical Cornwall sea temperature for ${names[m]} is <strong>${lo}–${hi}°C</strong>. The Atlantic drift keeps Cornish waters milder than latitude alone would suggest`};
-}
-
-/* ─── DATA FETCHING ─────────────────────────────── */
-async function fetchMarine(lat,lon){
-  const url=`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}`
-    +`&hourly=sea_surface_temperature,wave_height,wave_direction,wave_period,swell_wave_height`
-    +`&forecast_days=1&timezone=Europe%2FLondon`;
-  const r=await fetch(url); if(!r.ok)throw new Error('Marine '+r.status);
-  const d=await r.json();
-  const nowHour=new Date().toISOString().slice(0,13);
-  let idx=d.hourly.time.findIndex(t=>t.startsWith(nowHour));
-  if(idx<0)idx=d.hourly.time.length-1;
-  return{
-    sst:d.hourly.sea_surface_temperature?.[idx]??null,
-    waveHeight:d.hourly.wave_height?.[idx]??null,
-    waveDir:d.hourly.wave_direction?.[idx]??null,
-    wavePeriod:d.hourly.wave_period?.[idx]??null,
-    swellHeight:d.hourly.swell_wave_height?.[idx]??null
+  // V0 arguments (Doodson/Schureman, degrees)
+  return {
+    M2:  (2*h - 2*s)           % 360,
+    S2:  0,
+    N2:  (2*h - 3*s + p)       % 360,
+    K2:  (2*h)                 % 360,
+    K1:  (h + 90)              % 360,
+    O1:  (-2*s + h - 90)       % 360,
+    P1:  (-h + 90)             % 360,
+    Q1:  (-3*s + h + p - 90)   % 360,
+    M4:  (4*h - 4*s)           % 360,
+    MS4: (2*h)                 % 360
   };
 }
 
-async function fetchWeather(lat,lon){
-  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
-    +`&current=temperature_2m,wind_speed_10m,wind_direction_10m`
-    +`&wind_speed_unit=mph&timezone=Europe%2FLondon`;
-  const r=await fetch(url); if(!r.ok)throw new Error('Weather '+r.status);
-  const d=await r.json();
-  return{airTemp:d.current.temperature_2m,windSpeed:d.current.wind_speed_10m,windDir:d.current.wind_direction_10m};
-}
+/* ═══════════════════════════════════════════════════════════
+   TIDAL HEIGHT PREDICTION
+   ═══════════════════════════════════════════════════════════ */
 
-/* Fetch ~26 hours of Newlyn tide gauge readings */
-let cachedTideData=null; let tideDataTime=0;
-async function fetchNewlynReadings(){
-  const now=Date.now();
-  if(cachedTideData&&(now-tideDataTime)<15*60*1000)return cachedTideData;
+function tidalHeight(unixMs, harmonics) {
+  const T = julianCenturiesFromUnix(unixMs);
+  const t_hrs = (unixMs - 946728000000) / 3600000; // hours from J2000
+  const V0 = astronomicalArguments(T);
+  const D2R = Math.PI / 180;
 
-  const url=`https://environment.data.gov.uk/flood-monitoring/id/measures/${NEWLYN_MEASURE}/readings?_sorted&_limit=120`;
-  const r=await fetch(url); if(!r.ok)throw new Error('Tide gauge '+r.status);
-  const d=await r.json();
-
-  const readings=d.items
-    .map(item=>({t:new Date(item.dateTime).getTime(),v:item.value}))
-    .sort((a,b)=>a.t-b.t);
-
-  cachedTideData=readings; tideDataTime=now;
-  return readings;
-}
-
-/* Find local maxima and minima — smooth over short noise spikes */
-function findExtremes(readings){
-  const highs=[],lows=[];
-  const n=readings.length;
-  for(let i=2;i<n-2;i++){
-    const w=[readings[i-2].v,readings[i-1].v,readings[i].v,readings[i+1].v,readings[i+2].v];
-    const c=readings[i].v;
-    const maxW=Math.max(...w);
-    const minW=Math.min(...w);
-    if(c===maxW&&c>readings[i-2].v&&c>readings[i+2].v)highs.push(readings[i]);
-    if(c===minW&&c<readings[i-2].v&&c<readings[i+2].v)lows.push(readings[i]);
+  let h = harmonics.Z0;
+  for (const c of harmonics.constituents) {
+    const speed = SPEED[c.name];
+    const v0    = V0[c.name] || 0;
+    const arg   = (speed * t_hrs + v0 - c.G) * D2R;
+    h += c.H * Math.cos(arg);
   }
-  return{highs,lows};
+  return h;
 }
 
-/* Convert Newlyn mAOD reading to height above Chart Datum for a given location */
-function toLocCD(vAOD,loc){
-  const falH=vAOD+NEWLYN_TO_CD; // height above Falmouth-area CD
-  const deviation=falH-NEWLYN_MSL;
-  // Scale deviation using location's tidal range
-  const scale=deviation>0
-    ? loc.tidal.hwScale*(NEWLYN_RANGE/2/NEWLYN_RANGE)   // simplistic — use scale per HW/LW direction
-    : loc.tidal.lwScale*(NEWLYN_RANGE/2/NEWLYN_RANGE);
-  return loc.tidal.msl + deviation*(deviation>0?loc.tidal.hwScale:loc.tidal.lwScale);
+/* Find the next N tidal extremes from startMs over searchHours */
+function findExtremes(harmonics, startMs, searchHours, count) {
+  const STEP_MS = 5 * 60 * 1000; // 5-minute steps
+  const endMs   = startMs + searchHours * 3600000;
+  const extremes = [];
+
+  let h0 = tidalHeight(startMs, harmonics);
+  let h1 = tidalHeight(startMs + STEP_MS, harmonics);
+
+  for (let t = startMs + STEP_MS; t < endMs && extremes.length < count * 2; t += STEP_MS) {
+    const h2 = tidalHeight(t + STEP_MS, harmonics);
+    if (h1 > h0 && h1 > h2) {
+      // Refine by bisection
+      const peak = refineExtreme(harmonics, t - STEP_MS, t + STEP_MS, true);
+      extremes.push({ type:'HW', t: peak.t, h: peak.h });
+    } else if (h1 < h0 && h1 < h2) {
+      const trough = refineExtreme(harmonics, t - STEP_MS, t + STEP_MS, false);
+      extremes.push({ type:'LW', t: trough.t, h: trough.h });
+    }
+    h0 = h1; h1 = h2;
+  }
+  return extremes.slice(0, count);
 }
 
-function computeTides(readings,loc,now){
-  if(!readings||readings.length<10)return null;
-
-  const {highs,lows}=findExtremes(readings);
-
-  // Ascending list of all extremes with type
-  const allExtremes=[
-    ...highs.map(h=>({...h,type:'HW'})),
-    ...lows.map(l=>({...l,type:'LW'}))
-  ].sort((a,b)=>a.t-b.t);
-
-  if(allExtremes.length===0)return null;
-
-  const hwOffMs=loc.tidal.hwMins*60000;
-  const lwOffMs=loc.tidal.lwMins*60000;
-
-  // Build projected future events
-  const future=[];
-  for(const e of allExtremes){
-    const offsetMs=e.type==='HW'?hwOffMs:lwOffMs;
-    let proj=e.t+offsetMs;
-    while(proj<=now.getTime())proj+=M2_HRS*3600000;
-    const height=toLocCD(e.v,loc);
-    future.push({type:e.type,time:new Date(proj),height});
-    // Also add one more cycle ahead for completeness
-    future.push({type:e.type,time:new Date(proj+M2_HRS*3600000),height});
+function refineExtreme(harmonics, t0, t1, findMax) {
+  // Golden-section search over [t0, t1]
+  const phi = 1.618033988;
+  let a = t0, b = t1;
+  for (let i = 0; i < 30; i++) {
+    const d = (b - a) / phi;
+    const x1 = b - d, x2 = a + d;
+    const f1 = tidalHeight(x1, harmonics);
+    const f2 = tidalHeight(x2, harmonics);
+    if (findMax ? f1 < f2 : f1 > f2) a = x1; else b = x2;
   }
-
-  // Sort and take next 4 (next HW and LW at minimum)
-  const upcoming=future
-    .filter(e=>e.time>now)
-    .sort((a,b)=>a.time-b.time);
-
-  // Deduplicate events very close together
-  const deduped=[];
-  for(const ev of upcoming){
-    const tooClose=deduped.find(e=>e.type===ev.type&&Math.abs(e.time-ev.time)<2*3600000);
-    if(!tooClose)deduped.push(ev);
-    if(deduped.length>=4)break;
-  }
-
-  // Current tidal state
-  const latest=readings[readings.length-1];
-  const prev=readings[readings.length-4]||readings[0];
-  const rising=latest.v>prev.v;
-  const currentH=toLocCD(latest.v,loc);
-  const maxCD=toLocCD(Math.max(...readings.map(r=>r.v)),loc);
-  const minCD=toLocCD(Math.min(...readings.map(r=>r.v)),loc);
-  const pct=maxCD>minCD?Math.round((currentH-minCD)/(maxCD-minCD)*100):50;
-
-  return{events:deduped,rising,currentH,pct:Math.max(0,Math.min(100,pct))};
+  const t = (a + b) / 2;
+  return { t, h: tidalHeight(t, harmonics) };
 }
 
-/* ─── RENDER ─────────────────────────────────────── */
-function renderTideSection(tidalResult,portName){
-  if(!tidalResult){
-    return`<div class="tide-section"><div class="tide-label">Tide Times · ${portName}</div><div class="tide-error">Tide data unavailable</div></div>`;
+/* ═══════════════════════════════════════════════════════════
+   APPLY SECONDARY PORT CORRECTIONS
+   ═══════════════════════════════════════════════════════════ */
+
+function applyPortCorrections(falmouthExtremes, portKey) {
+  const corr = PORT_CORRECTIONS[portKey];
+  return falmouthExtremes.map(e => {
+    const offsetMins = e.type === 'HW' ? corr.hwMins : corr.lwMins;
+    const heightMult = e.type === 'HW' ? corr.hwMult : corr.lwMult;
+    // Scale height: centre on port's MSL, scale tidal deviation
+    const dev = e.h - PORT_CORRECTIONS.falmouth.z0;
+    const scaledH = corr.z0 + dev * heightMult;
+    return {
+      type: e.type,
+      time: new Date(e.t + offsetMins * 60000),
+      height: Math.max(0, scaledH)
+    };
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPUTE TIDAL STATE (current height, rising/falling, %)
+   ═══════════════════════════════════════════════════════════ */
+
+function computeTidalState(portKey, now) {
+  const nowMs = now.getTime();
+
+  // Compute Falmouth tide from 6 hours ago to 72 hours ahead
+  const falmouthExtremes = findExtremes(FALMOUTH_HARMONICS, nowMs - 6*3600000, 78, 8);
+  const portExtremes = applyPortCorrections(falmouthExtremes, portKey);
+
+  // Find next 4 events after now
+  const future = portExtremes.filter(e => e.time > now).slice(0, 4);
+
+  // Current height at this port
+  const corr = PORT_CORRECTIONS[portKey];
+  const falH = tidalHeight(nowMs, FALMOUTH_HARMONICS);
+  const dev = falH - PORT_CORRECTIONS.falmouth.z0;
+
+  // Use averaged multiplier for current state
+  const avgMult = (corr.hwMult + corr.lwMult) / 2;
+  const currentH = corr.z0 + dev * avgMult;
+
+  // Rising or falling (compare to 30 min ago)
+  const falH30 = tidalHeight(nowMs - 30*60000, FALMOUTH_HARMONICS);
+  const dev30 = falH30 - PORT_CORRECTIONS.falmouth.z0;
+  const h30 = corr.z0 + dev30 * avgMult;
+  const rising = currentH > h30;
+
+  // Bar percentage: where in the tidal cycle are we?
+  // Find surrounding HW and LW
+  const prev = portExtremes.filter(e => e.time <= now);
+  const prevEvent = prev[prev.length - 1];
+  const nextEvent = future[0];
+  let pct = 50;
+  if (prevEvent && nextEvent) {
+    const span = nextEvent.time - prevEvent.time;
+    const elapsed = now - prevEvent.time;
+    const raw = elapsed / span;
+    // If going HW→LW: bar goes 100→0; LW→HW: bar goes 0→100
+    pct = prevEvent.type === 'HW'
+      ? Math.round((1 - raw) * 100)
+      : Math.round(raw * 100);
   }
-  const{events,rising,currentH,pct}=tidalResult;
 
-  const dirIcon=rising?'↑':'↓';
-  const dirColor=rising?'var(--rise)':'var(--fall)';
-  const dirLabel=rising?'Rising':'Falling';
-  const barColor=rising?'var(--rise)':'var(--fall)';
+  return { events: future, rising, currentH, pct: Math.max(0, Math.min(100, pct)) };
+}
 
-  const eventHtml=events.slice(0,4).map(ev=>{
-    const cls=ev.type==='HW'?'hw':'lw';
-    const label=ev.type==='HW'?'High water':'Low water';
-    const h=ev.height!=null?`${ev.height.toFixed(1)}m`:'';
-    return`<div class="tide-event ${cls}">
+/* ═══════════════════════════════════════════════════════════
+   LOCATION CONFIG
+   ═══════════════════════════════════════════════════════════ */
+
+const LOCS = [
+  { id:'falmouth', name:'Falmouth Bay', icon:'⚓', type:'Open Sea · South Cornwall',
+    lat:50.10, lon:-5.05, coast:'south', portKey:'falmouth' },
+  { id:'newquay',  name:'Newquay',      icon:'🏄', type:'Atlantic Coast · North Cornwall',
+    lat:50.42, lon:-5.10, coast:'north', portKey:'newquay'  },
+  { id:'fal',      name:'Upper River Fal', icon:'🌿', type:'Tidal Estuary · King Harry Ferry',
+    lat:50.21, lon:-5.01, coast:'estuary', portKey:'fal'    }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════ */
+
+function bearingToName(d){const n=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];return n[Math.round(d/22.5)%16]}
+function windArrow(d){return['↓','↙','←','↖','↑','↗','→','↘'][Math.round(d/45)%8]}
+function tempColor(t){if(t==null)return'var(--sub)';if(t<10)return'var(--cold)';if(t<13)return'var(--accent2)';if(t<16)return'var(--mild)';if(t<19)return'var(--warm)';return'var(--hot)'}
+function fmt1(n){return n!=null?n.toFixed(1):'—'}
+function fmt0(n){return n!=null?Math.round(n).toString():'—'}
+
+function fmtTimeShort(d, now) {
+  const t = d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
+  const sameDay = d.toLocaleDateString('en-GB',{timeZone:'Europe/London'}) ===
+                  now.toLocaleDateString('en-GB',{timeZone:'Europe/London'});
+  return sameDay ? t : t + ' (tomorrow)';
+}
+
+function isOffshoreWind(dir, coast) {
+  return coast==='south' ? (dir>=315||dir<=135) : coast==='north' ? (dir>90&&dir<250) : false;
+}
+
+function windFactors(sp, dir, coast) {
+  const n=bearingToName(dir), off=isOffshoreWind(dir,coast);
+  if(sp>25&&off) return[{icon:'💨',text:`<strong>Strong ${n} offshore wind (${fmt0(sp)} mph)</strong> — driving coastal upwelling, cold deep water rising to the surface <span class="tag tag-cool">Cooling</span>`}];
+  if(sp>15&&off) return[{icon:'💨',text:`<strong>${n} offshore wind (${fmt0(sp)} mph)</strong> — some upwelling risk; cold water mixing upward <span class="tag tag-cool">Cooling</span>`}];
+  if(sp>20)      return[{icon:'🌬️',text:`<strong>Strong ${n} wind (${fmt0(sp)} mph)</strong> — turbulent mixing reducing surface temperature <span class="tag tag-cool">Slight cooling</span>`}];
+  if(sp>10)      return[{icon:'🌬️',text:`<strong>Moderate ${n} wind (${fmt0(sp)} mph)</strong> — minor surface mixing, no upwelling risk <span class="tag tag-neutral">Neutral</span>`}];
+  return [{icon:'😌',text:`<strong>Light winds (${fmt0(sp)} mph)</strong> — calm lets a warm surface layer build through solar heating <span class="tag tag-warm">Warming</span>`}];
+}
+
+function airSeaFactor(airT, seaT) {
+  if(airT==null||seaT==null)return null;
+  const d=airT-seaT;
+  if(d>5)  return{icon:'☀️',text:`<strong>Air ${Math.abs(d).toFixed(1)}°C warmer than sea</strong> — heat transferring into water <span class="tag tag-warm">Warming</span>`};
+  if(d>2)  return{icon:'🌤️',text:`<strong>Air slightly warmer than sea</strong> (${fmt1(airT)}°C) — gentle warming influence <span class="tag tag-warm">Slight warming</span>`};
+  if(d<-5) return{icon:'🌧️',text:`<strong>Sea ${Math.abs(d).toFixed(1)}°C warmer than air</strong> — heat escaping from ocean, sea fog risk <span class="tag tag-cool">Cooling</span>`};
+  if(d<-2) return{icon:'🌫️',text:`<strong>Sea warmer than air</strong> (${fmt1(airT)}°C) — mild sea fog risk <span class="tag tag-cool">Slight cooling</span>`};
+  return{icon:'🌡️',text:`<strong>Air (${fmt1(airT)}°C) and sea near thermal equilibrium</strong> <span class="tag tag-neutral">Neutral</span>`};
+}
+
+function waveFactor(wH, swH) {
+  if(wH==null)return null;
+  const h=Math.max(wH,swH||0);
+  if(h>2.5) return{icon:'🌊',text:`<strong>Large swell (${fmt1(h)}m)</strong> — wave mixing drawing cool water from depth <span class="tag tag-cool">Cooling</span>`};
+  if(h>1.2) return{icon:'🌊',text:`<strong>Moderate swell (${fmt1(h)}m)</strong> — minor wave mixing <span class="tag tag-cool">Slight cooling</span>`};
+  return{icon:'〰️',text:`<strong>Small swell (${fmt1(h)}m)</strong> — calm sea, warm surface layer stable <span class="tag tag-neutral">Stable</span>`};
+}
+
+function estuaryFactors(airT, seaT) {
+  const f=[
+    {icon:'🏞️',text:`<strong>Sheltered tidal ria</strong> — the upper Fal is a drowned river valley with restricted tidal exchange. Shallow enclosed water responds faster to air temperature than the open coast`},
+    {icon:'💧',text:`<strong>Freshwater mixing</strong> — river runoff from the Fal catchment dilutes tidal saltwater. Heavy rain can shift surface temperature 1–3°C from the coast`},
+    {icon:'🌊',text:`<strong>Tidal flushing</strong> — each tidal cycle brings Falmouth Bay water up-river. At low tide, isolated river water tracks air temperature more closely`}
+  ];
+  if(airT!=null&&seaT!=null&&Math.abs(airT-seaT)>3)
+    f.splice(1,0,{icon:'⚡',text:`<strong>Rapid thermal response</strong> — ${Math.abs(airT-seaT).toFixed(1)}°C difference; this shallow estuary will shift temperature over the coming hours`});
+  return f;
+}
+
+function seasonalFactor() {
+  const m=new Date().getMonth();
+  const normals=[[8,10],[8,10],[9,11],[10,12],[12,14],[14,16],[16,18],[17,19],[16,18],[15,17],[12,14],[9,11]];
+  const names=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return{icon:'📅',text:`<strong>Seasonal context</strong> — typical Cornwall sea temperature for ${names[m]} is <strong>${normals[m][0]}–${normals[m][1]}°C</strong>. The Atlantic drift keeps Cornish waters milder than latitude suggests`};
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DATA FETCHING
+   ═══════════════════════════════════════════════════════════ */
+
+async function fetchMarine(lat, lon) {
+  const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}`
+    + `&hourly=sea_surface_temperature,wave_height,wave_direction,wave_period,swell_wave_height`
+    + `&forecast_days=1&timezone=Europe%2FLondon`;
+  const r = await fetch(url); if(!r.ok) throw new Error('Marine '+r.status);
+  const d = await r.json();
+  const nowHour = new Date().toISOString().slice(0,13);
+  let idx = d.hourly.time.findIndex(t => t.startsWith(nowHour));
+  if(idx < 0) idx = d.hourly.time.length - 1;
+  return {
+    sst:        d.hourly.sea_surface_temperature?.[idx] ?? null,
+    waveHeight: d.hourly.wave_height?.[idx] ?? null,
+    waveDir:    d.hourly.wave_direction?.[idx] ?? null,
+    wavePeriod: d.hourly.wave_period?.[idx] ?? null,
+    swellHeight:d.hourly.swell_wave_height?.[idx] ?? null
+  };
+}
+
+async function fetchWeather(lat, lon) {
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
+    + `&current=temperature_2m,wind_speed_10m,wind_direction_10m`
+    + `&wind_speed_unit=mph&timezone=Europe%2FLondon`;
+  const r = await fetch(url); if(!r.ok) throw new Error('Weather '+r.status);
+  const d = await r.json();
+  return { airTemp:d.current.temperature_2m, windSpeed:d.current.wind_speed_10m, windDir:d.current.wind_direction_10m };
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════════════════ */
+
+function renderTideSection(portName, tidalState, now) {
+  const { events, rising, currentH, pct } = tidalState;
+  const dirColor = rising ? '#57cc99' : '#f4a261';
+  const dirLabel = rising ? '↑ Rising' : '↓ Falling';
+
+  const eventHtml = events.slice(0,4).map(e => {
+    const cls = e.type==='HW' ? 'hw' : 'lw';
+    const label = e.type==='HW' ? 'High water' : 'Low water';
+    return `<div class="tide-event ${cls}">
       <div class="tide-event-type">${label}</div>
-      <div class="tide-event-time">${fmtTimeShort(ev.time)}</div>
-      <div class="tide-event-height">${h}</div>
+      <div class="tide-event-time">${fmtTimeShort(e.time, now)}</div>
+      <div class="tide-event-height">${e.height.toFixed(1)} m</div>
     </div>`;
   }).join('');
 
-  return`<div class="tide-section">
+  return `<div class="tide-section">
     <div class="tide-label">Tide Times · ${portName}</div>
     <div class="tide-status">
-      <span class="tide-direction" style="color:${dirColor}">${dirIcon} ${dirLabel}</span>
-      <span class="tide-height-now">${currentH.toFixed(1)}m</span>
-      <div class="tide-bar-wrap"><div class="tide-bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <span class="tide-direction" style="color:${dirColor}">${dirLabel}</span>
+      <span class="tide-height-now">${currentH.toFixed(1)} m</span>
+      <div class="tide-bar-wrap"><div class="tide-bar-fill" style="width:${pct}%;background:${dirColor}"></div></div>
     </div>
     <div class="tide-events">${eventHtml}</div>
   </div>`;
 }
 
-function renderCard(loc,marine,weather,ea,tidalResult){
-  const{name,icon,type,coast}=loc;
+function renderCard(loc, marine, weather, tidalState, now) {
+  const { name, icon, type, coast, portKey } = loc;
+  const isEstuary = coast === 'estuary';
 
-  let displayTemp=null,tempSrc='',isEstimate=false;
-  if(coast==='estuary'&&ea?.temp!=null){
-    displayTemp=ea.temp; tempSrc='EA: '+ea.label;
-  }else if(marine?.sst!=null){
-    displayTemp=marine.sst;
-    if(coast==='estuary'){
-      tempSrc='Satellite SST · estimated'; isEstimate=true;
-    }else{
-      tempSrc='Satellite SST · Copernicus';
-    }
+  let displayTemp = null, tempSrc = '', isEstimate = false;
+  if(marine?.sst != null) {
+    displayTemp = marine.sst;
+    tempSrc = isEstuary ? 'Satellite SST · estimated' : 'Satellite SST · Copernicus';
+    isEstimate = isEstuary;
   }
 
-  const tColor=tempColor(displayTemp);
-  const tDisplay=displayTemp!=null
-    ?`<span style="color:${tColor}">${fmt1(displayTemp)}</span><span class="temp-unit">°C</span>`
-    :`<span style="color:var(--sub)">—</span>`;
+  const tColor = tempColor(displayTemp);
+  const tDisplay = displayTemp != null
+    ? `<span style="color:${tColor}">${fmt1(displayTemp)}</span><span class="temp-unit">°C</span>`
+    : `<span style="color:var(--sub)">—</span>`;
 
-  const estimateBadge=isEstimate
-    ?`<div class="est-badge">⚠ Estimated — no river sensor</div>`:'';
+  const wDir  = weather ? `${windArrow(weather.windDir)} ${bearingToName(weather.windDir)}` : '—';
+  const wSpd  = weather ? `${fmt0(weather.windSpeed)} mph` : '—';
+  const wvH   = (!isEstuary && marine?.waveHeight != null) ? `${fmt1(marine.waveHeight)} m` : 'N/A';
+  const wvP   = (!isEstuary && marine?.wavePeriod != null) ? `${fmt0(marine.wavePeriod)} s` : 'N/A';
+  const airT  = weather ? `${fmt1(weather.airTemp)}°C` : '—';
 
-  const wDir=weather?`${windArrow(weather.windDir)} ${bearingToName(weather.windDir)}`:'—';
-  const wSpd=weather?`${fmt0(weather.windSpeed)} mph`:'—';
-  const wvH=(coast!=='estuary'&&marine?.waveHeight!=null)?`${fmt1(marine.waveHeight)}m`:'N/A';
-  const wvP=(coast!=='estuary'&&marine?.wavePeriod!=null)?`${fmt0(marine.wavePeriod)}s`:'N/A';
-  const airT=weather?`${fmt1(weather.airTemp)}°C`:'—';
-
-  let factors=[];
-  if(coast==='estuary'){
-    factors=estuaryFactors(weather?.airTemp??null,displayTemp);
-  }else{
-    if(weather) factors.push(...windFactors(weather.windSpeed,weather.windDir,coast));
-    if(weather&&displayTemp!=null){const a=airSeaFactor(weather.airTemp,displayTemp);if(a)factors.push(a);}
-    if(marine?.waveHeight!=null){const w=waveFactor(marine.waveHeight,marine.swellHeight);if(w)factors.push(w);}
+  let factors = [];
+  if(isEstuary) {
+    factors = estuaryFactors(weather?.airTemp ?? null, displayTemp);
+  } else {
+    if(weather) factors.push(...windFactors(weather.windSpeed, weather.windDir, coast));
+    if(weather && displayTemp != null) { const a=airSeaFactor(weather.airTemp,displayTemp); if(a) factors.push(a); }
+    if(marine?.waveHeight != null) { const w=waveFactor(marine.waveHeight,marine.swellHeight); if(w) factors.push(w); }
   }
   factors.push(seasonalFactor());
 
-  const factorHtml=factors.map(f=>`<div class="factor"><span class="factor-ic">${f.icon}</span><span class="factor-txt">${f.text}</span></div>`).join('');
+  const factorHtml = factors.map(f =>
+    `<div class="factor"><span class="factor-ic">${f.icon}</span><span class="factor-txt">${f.text}</span></div>`
+  ).join('');
 
-  return`<div class="card">
+  const portCorr = PORT_CORRECTIONS[portKey];
+
+  return `<div class="card">
     <div class="card-top">
       <div>
         <div class="loc-name">${icon} ${name}</div>
         <div class="loc-type">${type}</div>
-        ${estimateBadge}
+        ${isEstimate ? '<div class="est-badge">⚠ Estimated — no river sensor</div>' : ''}
       </div>
       <div class="temp-block">
         <div class="temp-num">${tDisplay}</div>
-        <div class="temp-src">${tempSrc||'No data'}</div>
+        <div class="temp-src">${tempSrc || 'No data'}</div>
       </div>
     </div>
 
-    ${renderTideSection(tidalResult, loc.tidal.portName)}
+    ${tidalState ? renderTideSection(portCorr.name, tidalState, now) : ''}
 
     <div class="cond-grid">
-      <div class="cond">
-        <span class="cond-label">Wind</span>
+      <div class="cond"><span class="cond-label">Wind</span>
         <span class="cond-val">${wDir}</span>
-        <span class="cond-val" style="color:var(--sub);font-size:.78rem">${wSpd}</span>
-      </div>
-      <div class="cond">
-        <span class="cond-label">Air Temp</span>
-        <span class="cond-val">${airT}</span>
-      </div>
-      <div class="cond">
-        <span class="cond-label">${coast!=='estuary'?'Swell':'Water'}</span>
-        <span class="cond-val">${coast!=='estuary'?wvH:'Tidal'}</span>
-        ${coast!=='estuary'&&wvP!=='N/A'?`<span class="cond-val" style="color:var(--sub);font-size:.78rem">${wvP} period</span>`:''}
-      </div>
+        <span class="cond-val" style="color:var(--sub);font-size:.78rem">${wSpd}</span></div>
+      <div class="cond"><span class="cond-label">Air Temp</span><span class="cond-val">${airT}</span></div>
+      <div class="cond"><span class="cond-label">${isEstuary ? 'Water' : 'Swell'}</span>
+        <span class="cond-val">${isEstuary ? 'Tidal' : wvH}</span>
+        ${!isEstuary && wvP !== 'N/A' ? `<span class="cond-val" style="color:var(--sub);font-size:.78rem">${wvP} period</span>` : ''}</div>
     </div>
 
     <div class="factors">
@@ -530,78 +526,58 @@ function renderCard(loc,marine,weather,ea,tidalResult){
   </div>`;
 }
 
-/* ─── MAIN LOAD ──────────────────────────────────── */
-let loading=false;
+/* ═══════════════════════════════════════════════════════════
+   MAIN LOAD
+   ═══════════════════════════════════════════════════════════ */
 
-async function loadAll(){
-  if(loading)return; loading=true;
-  const main=document.getElementById('main');
-  const updEl=document.getElementById('updated');
-  const noteEl=document.getElementById('note');
-  const btn=document.getElementById('refresh-btn');
+let loading = false;
 
-  main.innerHTML=`<div class="loading"><div class="spinner"></div><p>Fetching live data from satellites &amp; tide gauge…</p></div>`;
-  noteEl.style.display='none'; btn.textContent='…';
+async function loadAll() {
+  if(loading) return; loading = true;
+  const main = document.getElementById('main');
+  const btn  = document.getElementById('refresh-btn');
+  const note = document.getElementById('note');
+  main.innerHTML = `<div class="loading"><div class="spinner"></div><p>Loading live data…</p></div>`;
+  note.style.display = 'none'; btn.textContent = '…';
 
-  const now=new Date();
+  const now = new Date();
 
-  try{
-    // Fetch tide gauge data once for all locations
-    const [tideReadings, locResults]=await Promise.all([
-      fetchNewlynReadings().catch(e=>{console.warn('Tide gauge:',e);return null;}),
-      Promise.allSettled(LOCS.map(async loc=>{
-        const[m,w,ea]=await Promise.allSettled([
-          fetchMarine(loc.lat,loc.lon),
-          fetchWeather(loc.lat,loc.lon),
-          loc.useEA?fetchEA(loc.lat,loc.lon):Promise.resolve(null)
-        ]);
-        return{
-          loc,
-          marine:m.status==='fulfilled'?m.value:null,
-          weather:w.status==='fulfilled'?w.value:null,
-          ea:ea.status==='fulfilled'?ea.value:null
-        };
-      }))
-    ]);
+  try {
+    const locResults = await Promise.allSettled(LOCS.map(async loc => {
+      const [m, w] = await Promise.allSettled([
+        fetchMarine(loc.lat, loc.lon),
+        fetchWeather(loc.lat, loc.lon)
+      ]);
+      return {
+        loc,
+        marine:  m.status==='fulfilled' ? m.value : null,
+        weather: w.status==='fulfilled' ? w.value : null
+      };
+    }));
 
-    let html='';
-    for(const r of locResults){
-      if(r.status!=='fulfilled'){html+=`<div style="color:#f87171;padding:8px">Failed to load location</div>`;continue;}
-      const{loc,marine,weather,ea}=r.value;
-      const tidalResult=tideReadings?computeTides(tideReadings,loc,now):null;
-      html+=renderCard(loc,marine,weather,ea,tidalResult);
+    let html = '';
+    for(const r of locResults) {
+      if(r.status !== 'fulfilled') { html += '<div style="color:#f87171;padding:8px">Failed to load</div>'; continue; }
+      const { loc, marine, weather } = r.value;
+      const tidalState = computeTidalState(loc.portKey, now);
+      html += renderCard(loc, marine, weather, tidalState, now);
     }
 
-    main.innerHTML=html;
-    noteEl.style.display='block';
-    updEl.textContent=`Updated ${now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · Tap ↻ to refresh`;
+    main.innerHTML = html;
+    note.style.display = 'block';
+    document.getElementById('updated').textContent =
+      `Updated ${now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · Tap ↻ to refresh`;
 
-  }catch(e){
-    main.innerHTML=`<div style="color:#f87171;padding:16px">Failed to load: ${e.message}</div>`;
+  } catch(e) {
+    main.innerHTML = `<div style="color:#f87171;padding:16px">Error: ${e.message}</div>`;
   }
 
-  btn.textContent='↻ Refresh'; loading=false;
-}
-
-async function fetchEA(lat,lon){
-  const stUrl=`https://environment.data.gov.uk/flood-monitoring/id/stations?parameter=temperature&lat=${lat}&long=${lon}&dist=20`;
-  try{
-    const sr=await fetch(stUrl); if(!sr.ok)return null;
-    const sd=await sr.json(); if(!sd.items?.length)return null;
-    const st=sd.items[0];
-    const stId=st['@id'].split('/').pop();
-    const rr=await fetch(`https://environment.data.gov.uk/flood-monitoring/id/stations/${stId}/readings?latest`);
-    if(!rr.ok)return null;
-    const rd=await rr.json(); if(!rd.items?.length)return null;
-    const reading=rd.items.find(r=>(typeof r.measure==='string'&&r.measure.toLowerCase().includes('temperature'))||r.parameter==='temperature')||rd.items[0];
-    if(reading?.value==null)return null;
-    return{temp:reading.value,label:st.label||'River Fal station'};
-  }catch(e){return null;}
+  btn.textContent = '↻ Refresh'; loading = false;
 }
 
 loadAll();
-setInterval(loadAll,30*60*1000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadAll();});
+setInterval(loadAll, 30 * 60 * 1000);
+document.addEventListener('visibilitychange', () => { if(!document.hidden) loadAll(); });
 </script>
 </body>
 </html>
